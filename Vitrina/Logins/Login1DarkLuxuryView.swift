@@ -105,6 +105,7 @@ struct Login1DarkLuxuryView: View {
                                     .foregroundStyle(.white)
                                     .keyboardType(.emailAddress)
                                     .autocapitalization(.none)
+                                    .tint(.white)   // 👈 agrega esta línea
                             }
                             .padding(.horizontal, 16)
                             .padding(.vertical, 14)
@@ -159,7 +160,7 @@ struct Login1DarkLuxuryView: View {
                         // Botón principal
                         Button {
                             withAnimation(.spring(response: 0.2, dampingFraction: 0.4)) {
-                               presionado = true
+                                presionado = true
                             }
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                                 withAnimation(.spring()) {
@@ -167,7 +168,7 @@ struct Login1DarkLuxuryView: View {
                                 }
                             }
                         } label: {
-                            Text("Iniciar Sesion")
+                            Text("Iniciar Sesión")
                                 .font(.system(size: 16, weight: .semibold))
                                 .foregroundStyle(.white)
                                 .frame(maxWidth: .infinity)
@@ -185,7 +186,54 @@ struct Login1DarkLuxuryView: View {
                                 )
                         }
                         .scaleEffect(presionado ? 0.96 : 1.0) // 👈 efecto que late
+                        
+                        // Divider "o continúa con"
+                        HStack(spacing: 12) {
+                            Rectangle()
+                                .fill(.white.opacity(0.1))
+                                .frame(height: 1)
+                            Text("o continúa con")
+                                .font(.system(size: 12))
+                                .foregroundStyle(.white.opacity(0.3))
+                                .fixedSize() // evita que el texto del divider se comprima o estire.
+                            Rectangle()
+                                .fill(.white.opacity(0.1))
+                                .frame(height: 1)
+                        }
+                        // Botón Apple
+                        Button{ } label: {
+                            HStack(spacing: 10) {
+                                Image(systemName: "apple.logo")
+                                    .font(.system(size: 18))
+                                    .foregroundStyle(.white)
+                                Text("Continuar con Apple")
+                                    .font(.system(size: 15, weight: .medium))
+                                    .foregroundStyle(.white)
+                            }
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 54)
+                            .background(.white.opacity(0.07))
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 16)
+                                    .stroke(.white.opacity(0.12), lineWidth: 1)
+                            )
+                            .cornerRadius(16)
+                        }
                     }
+                    .padding(.bottom, 32)
+                    
+                    // 🟣 BLOQUE 5 — Footer
+                    HStack(spacing: 4) {
+                        Text("¿No tienes cuenta?")
+                            .font(.system(size: 14))
+                            .foregroundStyle(.white.opacity(0.4))
+                        Button("Regístrate") { }
+                            .font(.system(size: 14, weight: .semibold))
+                            .foregroundStyle(
+                                Color(red: 0.47, green: 0.31, blue: 1.0)
+                            )
+                    }
+                    .padding(.bottom, 40)
                 }
                 .padding(.horizontal, 20)
             }
@@ -193,6 +241,7 @@ struct Login1DarkLuxuryView: View {
         .preferredColorScheme(.dark)
     }
 }
+                    
 
 //MARK: - FUNCION REUTILIZABLE PARA TextFiel
 

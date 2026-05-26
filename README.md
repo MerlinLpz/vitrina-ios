@@ -5,11 +5,18 @@ SwiftUI UI Design Collection — diseños de interfaces móviles profesionales.
 
 ## Logins
 
-### 01 · Dark Luxury 🚧
-> Estado: En progreso
+### 01 · Dark Luxury ✅
+> Estado: Terminado
 
-![wip1](screenshots/login1-dark-luxury-wip1.png)
-![wip2](screenshots/login1-dark-luxury-wip2.png)
+![final](screenshots/login1-dark-luxury-final.png)
+
+**Características:**
+- Fondo oscuro con gradiente púrpura
+- Campos con iconos y placeholder elegante
+- Botón con gradiente y glow effect
+- Separador "o continúa con"
+- Botón Continuar con Apple
+- Animación `.scaleEffect` al presionar
 
 ---
 
