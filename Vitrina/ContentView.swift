@@ -15,6 +15,10 @@ struct ContentView: View {
                     NavigationLink("01 · Dark Luxury") {
                         Login1DarkLuxuryView()
                     }
+                    
+                    NavigationLink("02 · Velvet Glass") {
+                        Login2VelvetView()
+                    }
                 }
             }
             .navigationTitle("Vitrina")
