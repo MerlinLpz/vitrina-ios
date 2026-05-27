@@ -15,7 +15,7 @@ SwiftUI UI Design Collection — diseños de interfaces móviles profesionales.
 ### 02 · Velvet 🚧
 > Estado: En progreso
 
-![wip1](screenshots/login2-velvet-wip1.png)
+![wip](screenshots/Merlin.png)
 
 ---
 
