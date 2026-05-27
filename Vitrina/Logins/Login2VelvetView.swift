@@ -126,9 +126,60 @@ struct Login2VelvetView: View {
                 Spacer(minLength: 24)
                 
                 // 🟣 BLOQUE 4 — Glass Card (siguiente paso)
-                Text("Card aquí ✅")
-                    .foregroundStyle(.white)
-                    .padding(.bottom, 20)
+                VStack(alignment: .leading, spacing: 0) {
+                    
+                    // Título
+                    Text("Sign in")
+                        .font(.system(size: 24, weight: .semibold))
+                        .foregroundStyle(.white)
+                        .tracking(-0.4) // Letras esten mas ajustadas
+                    
+                    // Subtítulo
+                    Text("Welcome back, please enter your details.")
+                        .font(.system(size: 13))
+                        .foregroundStyle(.white.opacity(0.55))
+                        .padding(.top, 6)
+                        .padding(.bottom, 22)
+                    
+                    // 🟣 BLOQUE 5 — Campos (siguiente paso)
+                    Text("Campos aquí ✅")
+                        .foregroundStyle(.white)
+                        .padding(.bottom, 20)
+                    
+                }
+                .padding(.horizontal, 24)
+                .padding(.top, 32)
+                .padding(.bottom, 28)
+                .background(
+                    ZStack {
+                        // Capa 1 — material de vidrio nativo de iOS
+                        RoundedRectangle(cornerRadius: 32, style: .continuous)
+                            .fill(.ultraThinMaterial)
+                        
+                        // Capa 2 — tinte oscuro para que combine con el fondo
+                        RoundedRectangle(cornerRadius: 32, style: .continuous)
+                            .fill(Color.black.opacity(0.35))
+                        
+                        // Capa 3 — borde sutil de medio pixel
+                        RoundedRectangle(cornerRadius: 32, style: .continuous)
+                            .stroke(.white.opacity(0.08), lineWidth: 1)
+                        
+                        // Capa 4 — brillo en el borde superior
+                        // Simula la luz tocando el borde del vidrio
+                        RoundedRectangle(cornerRadius: 32, style: .continuous)
+                            .strokeBorder(
+                                LinearGradient(
+                                    colors: [.white.opacity(0.18), .clear, .clear],
+                                    startPoint: .top,
+                                    endPoint: .bottom
+                                ),
+                                lineWidth: 1
+                            )
+                    }
+                )
+                .shadow(color: .black.opacity(0.5), radius: 40, y: 20)
+                .padding(.horizontal, 20)
+                .padding(.bottom, 20)
             }
         }
         .preferredColorScheme(.dark)
