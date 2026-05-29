@@ -8,6 +8,13 @@
 import SwiftUI
 
 struct Login3OnyxView: View {
+    
+    @State private var email = ""
+    @State private var password = ""
+    @State private var showPassword = false
+    
+    @FocusState private var focusedField: Field?
+    enum Field { case email, password }
     var body: some View {
         
         ZStack {
@@ -80,9 +87,45 @@ struct Login3OnyxView: View {
                     }
                     .padding(.top, 110)
                     
-                    // 🟣 BLOQUE 3 — Campos (siguiente paso)
-                    Text("Campos aquí ✅")
-                               .foregroundStyle(.white)
+                    // 🟣 BLOQUE 3 — Campos  de texto
+                    VStack(spacing: 28) {
+                        
+                        // Campo Email
+                        OnyxField(
+                            label: "EMAIL",
+                            text: $email,
+                            isSecure: false,
+                            isFocused: focusedField == .email
+                        )
+                        .focused($focusedField, equals: .email)
+                        .keyboardType(.emailAddress)
+                        .textInputAutocapitalization(.never)
+                        .textContentType(.emailAddress)  // 👈 agrega esto
+                        
+                        // Campo Password
+                        OnyxField(
+                            label: "PASSWORD",
+                            text: $password,
+                            isSecure: !showPassword,
+                            isFocused: focusedField == .password,
+                            showToggle: true,
+                            onToggle: { showPassword.toggle() }
+                        )
+                        .focused($focusedField, equals: .password)
+                        .textContentType(.password) 
+                    }
+                    .padding(.bottom, 12)
+                    
+                    // Forgot password
+                    Button("Forgot password") { }
+                        .font(.system(size: 12, weight: .medium))
+                        .foregroundStyle(.white.opacity(0.5))
+                        .overlay(
+                            Rectangle()
+                                .fill(.white.opacity(0.2))
+                                .frame(height: 1)
+                                .offset(y: 10)
+                        )
                 }
                 .padding(.horizontal, 48)
             }
@@ -91,6 +134,73 @@ struct Login3OnyxView: View {
     }
 }
 
+//MARK: - OnyxField
+struct OnyxField: View {
+    
+    let label: String
+    @Binding var text: String
+    let isSecure: Bool
+    let isFocused: Bool
+    var showToggle: Bool = false
+    var onToggle: (() -> Void)? = nil
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            
+            // Label uppercase
+            Text(label)
+                .font(.system(size: 10, weight: .semibold))
+                .foregroundStyle(
+                    isFocused ? .white : .white.opacity(0.4)
+                )
+                .kerning(2)
+                .animation(.easeIn(duration: 0.2), value: isFocused)
+            
+            // Input + toggle
+            HStack {
+                Group {
+                    if isSecure {
+                        SecureField("", text: $text)
+                    }else {
+                        TextField("", text: $text)
+                    }
+                }
+                .font(.system(size: 17))
+                .foregroundStyle(.white)
+                .tint(.white)
+                
+                if showToggle {
+                    Button {
+                        onToggle?()
+                    } label: {
+                        Image(systemName: isSecure ? "eye" : "eye.slash")
+                            .font(.system(size: 16))
+                            .foregroundStyle(.white.opacity(0.4))
+                    }
+                    
+                }
+            }
+            // Línea animada que barre de izquierda a derecha al enfocar
+            // Una sola línea que se ilumina al enfocar
+            GeometryReader { geo in
+                ZStack(alignment: .leading) {
+                    
+                    // Línea base — siempre visible
+                    Rectangle()
+                        .fill(Color.white.opacity(0.15))
+                        .frame(width: geo.size.width, height: 1)
+                    
+                    // Línea animada encima — barre al enfocar
+                    Rectangle()
+                        .fill(Color.white.opacity(0.6))
+                        .frame(width: isFocused ? geo.size.width : 0, height: 1)
+                        .animation(.easeInOut(duration: 0.35), value: isFocused)
+                }
+            }
+            .frame(height: 1)
+        }
+    }
+}
 #Preview {
     Login3OnyxView()
 }
